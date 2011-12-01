@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:blogspot="http://hnavarro-sv.blogspot.com"
+            targetNamespace="http://hnavarro-sv.blogspot.com"
+            elementFormDefault="qualified"
+            xmlns:xml="http://www.w3.org/XML/1998/namespace"
+            xmlns:oraxdb="http://xmlns.oracle.com/xdb"
+            oraxdb:schemaURL="http://hnavarro-sv.blogspot.com/hr.xsd">
+  <xsd:complexType name="emp" oraxdb:SQLType="type_emp">
+    <xsd:sequence>
+      <xsd:element name="firstName">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="20"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="lastName">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="25"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="email">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="25"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="hireDate" type="xsd:dateTime"/>
+      <xsd:element name="salary" type="xsd:decimal"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="emps" oraxdb:SQLType="type_emps">
+    <xsd:sequence maxOccurs="unbounded">
+      <xsd:element name="item" type="blogspot:emp"
+                   oraxdb:SQLCollType="type_item_vtor"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="dept" oraxdb:SQLType="type_dept">
+    <xsd:sequence maxOccurs="1" minOccurs="1">
+      <xsd:element name="departmentId" type="xsd:int"/>
+      <xsd:element name="departmentName">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="30"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="emps" type="blogspot:emps"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
